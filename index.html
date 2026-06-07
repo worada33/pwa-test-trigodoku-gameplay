@@ -380,6 +380,34 @@
     cursor:pointer; transition:all .2s;
   }
   .btn-ok:hover { box-shadow:0 0 20px rgba(100,200,255,.3); transform:translateY(-2px); }
+/* ── Install PWA Button ── */
+  #install-btn {
+    display: none;
+    margin-top: 12px;
+    align-items: center; justify-content: center; gap: 8px;
+    font-family: 'Space Mono', monospace; font-weight: 700;
+    font-size: clamp(11px, 2vw, 13px); letter-spacing: 1px;
+    padding: 10px 28px; border-radius: 12px;
+    border: 1px solid rgba(100,200,255,.4);
+    background: rgba(100,200,255,.08);
+    color: var(--accent);
+    cursor: pointer;
+    transition: all .2s;
+  }
+  #install-btn:hover {
+    background: rgba(100,200,255,.18);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(100,200,255,.2);
+  }
+  #ios-hint {
+    display: none;
+    margin-top: 10px;
+    font-size: 11px; color: var(--dim);
+    text-align: center; max-width: 240px;
+    line-height: 1.6; letter-spacing: .5px;
+  }
+
+
 </style>
 </head>
 <body>
@@ -398,6 +426,10 @@
       <div class="subtitle">TRIGONOMETRY PUZZLE GAME</div>
     </div>
     <button class="btn btn-primary" onclick="showScreen('select-screen')">▶&nbsp; PLAY</button>
+    <button id="install-btn">📱 Install App</button>
+    <div id="ios-hint">บน iPhone/iPad กรุณากด<br>Share ▶ Add to Home Screen<br>เพื่อทำการติดตั้ง</div>
+  </div>
+  
   </div>
 
   <!-- Select -->
@@ -637,6 +669,38 @@ function closePopup(){document.getElementById('popup-overlay').classList.add('hi
 function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('hidden',s.id!==id));}
 
 (()=>{const w=document.getElementById('bg-circles');for(let i=0;i<8;i++){const s=document.createElement('span'),sz=60+i*60;s.style.cssText=`width:${sz}px;height:${sz}px;opacity:${0.04+i*.015}`;w.appendChild(s);}})();
+/* ── PWA Install ── */
+let deferredPrompt = null;
+const installBtn = document.getElementById('install-btn');
+const iosHint    = document.getElementById('ios-hint');
+
+const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+const isInStandalone = window.navigator.standalone === true;
+
+if (isIOS && !isInStandalone) {
+  iosHint.style.display = 'block';
+}
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  installBtn.style.display = 'flex';
+});
+
+installBtn.addEventListener('click', async () => {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  const { outcome } = await deferredPrompt.userChoice;
+  if (outcome === 'accepted') {
+    installBtn.style.display = 'none';
+  }
+  deferredPrompt = null;
+});
+
+window.addEventListener('appinstalled', () => {
+  installBtn.style.display = 'none';
+  deferredPrompt = null;
+});
 </script>
   
 <script>
