@@ -1,4 +1,4 @@
-const CACHE_NAME = 'trigodoku-v1';
+const CACHE_NAME = 'trigodoku-v2';
 
 const FILES_TO_CACHE = [
   './',
