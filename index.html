@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Trig Sudoku</title>
+<title>Trigodoku</title>
   
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0d1424">  
@@ -62,13 +62,12 @@
 
   /* ── First page ── */
   .title-wrap { text-align:center; margin-bottom:36px; }
-  .title-trig, .title-sudoku {
+  .title-trigodoku {
     font-family:'Space Mono',monospace; font-weight:700;
     letter-spacing:4px; line-height:1;
     font-size: clamp(28px, min(9vw,8vh), 56px);
   }
-  .title-trig   { color:var(--accent); text-shadow:0 0 40px rgba(100,200,255,.4); }
-  .title-sudoku { color:var(--text); }
+  .title-trigodoku   { color:var(--accent); text-shadow:0 0 40px rgba(100,200,255,.4); }
   .subtitle { color:var(--dim); font-size:clamp(11px,1.8vw,14px); margin-top:10px; letter-spacing:2px; }
 
   .btn {
@@ -421,8 +420,7 @@
     style="position:absolute; top:12px; left:12px;" 
     onclick="window.location.href='https://worada33.github.io/trigodoku-web/'">← Back</button>
     <div class="title-wrap">
-      <div class="title-trig">TRIG</div>
-      <div class="title-sudoku">SUDOKU</div>
+      <div class="title-TRIGODOKU">TRIG</div>
       <div class="subtitle">TRIGONOMETRY PUZZLE GAME</div>
     </div>
     <button class="btn btn-primary" onclick="showScreen('select-screen')">▶&nbsp; PLAY</button>
